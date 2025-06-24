@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .navigation {
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .navigation img {
+            width: 80px;
+            height: auto;
+            margin-top: 10px;
+        }
+        .navigation a {
+            text-decoration: none;
+            margin: 10px 0;
+            padding: 10px;
+            display: block;
+            font-weight: bold;
+        }
+        .main {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        #containerEdit {
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        #containerEdit label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        #containerEdit input, #containerEdit select, #containerEdit textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #containerEdit button {
+            background-color: #007aff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #containerEdit button:hover {
+            background-color: #005bb5;
+        }
+        #containerEdit .cancel-button {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+        }
+        #containerEdit .cancel-button a {
+            text-decoration: none;
+            color: black;
+        }
+        #errorPassword, #errorValidation {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+
+<body>
+         <div class="navigation" >
+        <img src="https://s3-alpha-sig.figma.com/img/5543/fa15/ec2bf2848bcc7e055bf7365b9ab61012?Expires=1745193600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=tyMri3zs7~lPnKEcTm9ZgZw-zkvPBfLRlTPd-4evs-UJHOpvzcepnjWrbfbZaHDQtSdg~lKgE0yoTF-H5RIjgVH4dGTXO0dOrZ3O860~Tkb2LamavCE4G5SSXznhmLurWWf3VjKVgDDz66KQvvUK-37lObnpr52C90bOOvSobVdN3lUzcgKgaTYcAFZjacxX5leeFUlas8a0w6YLQZuad1AhX7OGJbteMReBRVpGdYWMUR8pfa04BQ~fmHJ7RFUloZfOq~U2hdPwRkTOFi4F2ga4ragaBUxpx70mDWRxcnQSC7f3N0jf6uCqtw6Jp7ZTq5ibLfQcpM9Id5bV2bBv4Q__"
+            style="width: 80px; height: auto; margin-top: 10px;" 
+            alt="User dashboard"> <br> <br>
+        <a href="project3.html" style="color: rgba(13, 110, 253, 1);">User dashboard</a>
+        <a href="project4.html" style="color: rgba(13, 110, 253, 1);">Add new user</a>
+        <hr style="border: 0;
+                height: 1px;
+                width: 200px;
+                background-color: #000000">
+        <a href="projectp2.html" style="color: rgba(13, 110, 253, 1);">Sign out</a>
+    </div>
+    <a href="project4.html" style="color: rgba(13, 110, 253, 1);">Edit user</a>
+        <div class="main">
+            <h1 style="margin-left: 240px; margin-top: 30px;">User Management</h1>
+            <h2 style="margin-left: 240px;">Edit user</h2>
+            <div id="containerEdit">
+                <label for="userCode">User code:</label>
+                <input type="text" id="userCode" style="width: 100%;"/>
+                <span id="errorUserCode"></span>
+                <label for="username">User name:</label>
+                <input type="text" id="username" style="width: 100%;" />
+                <span id="errorUsername"></span><br>
+    
+                <label for="email">Email</label>
+                <input type="email" id="email" style="width: 100%;"/>
+                <span id="errorEmail"></span> 
+    
+                <label for="password">Password:</label>
+                <input style="left: 100px;width: 100%;" type="password" id="password" />
+                <span id="errorPassword"></span> <br>
+    
+                <label for="role">Role:</label>
+                <select id="role" style="width: 30%;">
+                    <option value="User">User</option>
+                    <option value="Admin">Admin</option>
+                </select>
+                <span id="errorRole"></span>
+    
+                <label for="birthday">Birthday:</label>
+                <input type="date" id="birthday" style="width: 30%;"/>
+                <span id="errorBirthday"></span>
+    
+                <label for="status">Status:</label>
+                <div id="statusContainer">
+                    <label for="statusActive"><input type="radio" id="statusActive" name="status" value="Active" />Active </label>
+                    <label for="statusDeactivate"><input type="radio" id="statusDeactivate" name="status" value="Deactivate" />Deactivate</label>
+                </div>
+                <span id="errorStatus"></span>
+                <br>
+                <label for="description">Description:</label>
+                <textarea id="description" rows="5" style="width: 100%;"></textarea>
+                <span id="errorDescription"></span>
+                
+                <button class="cancel-button"><a href="project3.html">Back</a></button>
+                <button id="update" style="background-color: rgba(0, 122, 255, 1); left: 50px;">Save</button>
+            </div>
+        </div>
+    
+        <script>
+            let userCode = document.querySelector("#userCode");
+let email = document.querySelector("#email");
+let username = document.querySelector("#username");
+let password = document.querySelector("#password");
+let role = document.querySelector("#role");
+let birthday = document.querySelector("#birthday");
+let statusActive = document.querySelector("#statusActive");
+let statusDeactivate = document.querySelector("#statusDeactivate");
+let description = document.querySelector("#description");
+
+let errorUserCode = document.querySelector("#errorUserCode");
+let errorEmail = document.querySelector("#errorEmail");
+let errorUsername = document.querySelector("#errorUsername");
+let errorPassword = document.querySelector("#errorPassword");
+let errorRole = document.querySelector("#errorRole");
+let errorBirthday = document.querySelector("#errorBirthday");
+let errorStatus = document.querySelector("#errorStatus");
+let errorDescription = document.querySelector("#errorDescription");
+
+let users = JSON.parse(localStorage.getItem("users")) || [];
+let userId = new URLSearchParams(window.location.search).get("id");
+let user = users.find(user => user.id == userId);
+
+if (user) {
+    userCode.value = user.userCode;
+    email.value = user.email;
+    username.value = user.username;
+    password.value = user.password;
+    role.value = user.role;
+    birthday.value = user.birthday;
+    description.value = user.description;
+    if (user.status === "Active") {
+        statusActive.checked = true;
+    } else {
+        statusDeactivate.checked = true;
+    }
+}
+
+function checkDataEmpty() {
+    let isEmpty = true;
+
+    if (userCode.value === "") {
+        errorUserCode.textContent = "User code không được bỏ trống";
+        isEmpty = false;
+    } else {
+        errorUserCode.textContent = "";
+    }
+
+    const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (email.value === "") {
+        errorEmail.textContent = "Email không được bỏ trống";
+        isEmpty = false;
+    } else if (!emailPattern.test(email.value)) {
+        errorEmail.textContent = "Email không đúng định dạng";
+        isEmpty = false;
+    } else {
+        errorEmail.textContent = "";
+    }
+
+    if (username.value === "") {
+        errorUsername.textContent = "User name không được bỏ trống";
+        isEmpty = false;
+    } else {
+        errorUsername.textContent = "";
+    }
+
+    if (password.value === "") {
+        errorPassword.textContent = "Password không được bỏ trống";
+        isEmpty = false;
+    } else if (password.value.length < 8) {
+        errorPassword.textContent = "Password phải có ít nhất 8 ký tự";
+        isEmpty = false;
+    } else {
+        errorPassword.textContent = "";
+    }
+
+    if (!role.value) {
+        errorRole.textContent = "Role không được bỏ trống";
+        isEmpty = false;
+    } else {
+        errorRole.textContent = "";
+    }
+
+    if (birthday.value === "") {
+        errorBirthday.textContent = "Birthday không được bỏ trống";
+        isEmpty = false;
+    } else {
+        errorBirthday.textContent = "";
+    }
+
+    if (!statusActive.checked && !statusDeactivate.checked) {
+        errorStatus.textContent = "Status không được bỏ trống";
+        isEmpty = false;
+    } else {
+        errorStatus.textContent = "";
+    }
+
+    if (description.value === "") {
+        errorDescription.textContent = "Description không được bỏ trống";
+        isEmpty = false;
+    } else {
+        errorDescription.textContent = "";
+    }
+
+    return isEmpty;
+}
+
+document.querySelector("#update").addEventListener("click", () => {
+    if (checkDataEmpty()) {
+        let emailExisted = users.some(user => user.email === email.value && user.id != userId);
+        let userCodeExisted = users.some(user => user.userCode === userCode.value && user.id != userId);
+
+        if (!emailExisted && !userCodeExisted) {
+            user.userCode = userCode.value;
+            user.email = email.value;
+            user.username = username.value;
+            user.password = password.value;
+            user.role = role.value;
+            user.birthday = birthday.value;
+            user.status = statusActive.checked ? "Active" : "Deactivate";
+            user.description = description.value;
+            localStorage.setItem("users", JSON.stringify(users));
+            alert("Cập nhật thành công");
+            window.location.href = "project3.html";
+        } else if (emailExisted) {
+            alert("Email đã tồn tại");
+        } else {
+            alert("User code đã tồn tại");
+        }
+    }
+});
+        </script>
+    </body>
+    
+    

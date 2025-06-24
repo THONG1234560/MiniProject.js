@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Form</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+      }
+      .signup {
+        background-color: rgba(255, 255, 255, 1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 1140px;
+        height: 670px;
+        justify-items: center;
+      }
+      .container {
+        margin-top: 101px;
+        border-radius: 10px;
+        width: 298px;
+        height: 452.14px;
+      }
+      h1 {
+        margin-bottom: 24px;
+        text-align: center;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+      }
+      .btn {
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 15px;
+      }
+      .btn:hover {
+        background-color: #0056b3;
+      }
+      .error {
+        color: red;
+        text-align: right;
+      }
+      p {
+        font-size: 14px;
+      }
+      @media (max-width: 768px) {
+        .signup {
+          width: 573px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup">
+      <div class="container">
+        <h1>Trello</h1>
+        <h2 style="margin-bottom: 16px;">Please sign up</h2>
+        <form id="form">
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email address"
+          />
+          <small class="error error-email"></small>
+
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+          />
+          <small class="error error-username"></small>
+
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+          />
+          <small class="error error-password"></small>
+
+          <p style="margin-top: 13px; margin-bottom: 16px ;">Already have an account, <a href="./projectp2.html">click here!</a></p>
+
+          <button type="submit" class="btn">Sign up</button>
+
+          <p style="margin-top: 48px;">&copy;2025 - Rikkei Education</p>
+        </form>
+      </div>
+    </div>
+    <script>
+      // Lấy danh sách người dùng từ localStorage hoặc khởi tạo danh sách mới nếu chưa có
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+
+      // Lấy các phần tử DOM cần thiết
+      let form = document.getElementById("form");
+      let errorEmail = document.querySelector(".error-email");
+      let errorUsername = document.querySelector(".error-username");
+      let errorPassword = document.querySelector(".error-password");
+
+      // Xử lý khi người dùng gửi form
+      form.onsubmit = function (e) {
+        e.preventDefault();
+        if (validateData(form)) {
+          // Kiểm tra email đã tồn tại
+          const emailExisted = users.some(user => user.email === form.email.value);
+          if (emailExisted) {
+            errorEmail.innerText = "Email đã được sử dụng";
+            return;
+          }
+
+          // Tạo đối tượng người dùng mới
+          const newUser = {
+            id: Math.floor(Math.random() * 10000),
+            email: form.email.value,
+            username: form.username.value,
+            password: form.password.value,
+          };
+          users.push(newUser);
+          localStorage.setItem("users", JSON.stringify(users)); // Lưu danh sách người dùng vào localStorage
+
+          // Hiển thị thông báo thành công bằng alert
+          alert("Đăng ký hoàn tất!");
+          form.reset(); // Xóa dữ liệu trong form
+          window.location.href = "projectp2.html";
+        }
+      };
+
+      // Hàm kiểm tra dữ liệu hợp lệ
+      function validateData(form) {
+        let check = true;
+        // Kiểm tra email
+        if (form.email.value === "") {
+          errorEmail.innerText = "Email error";
+          check = false;
+        } else if (!validEmail(form.email.value)) {
+          errorEmail.innerText = "Email error";
+          check = false;
+        } else {
+          errorEmail.innerText = "";
+        }
+        // Kiểm tra tên người dùng
+        if (form.username.value === "") {
+          errorUsername.innerText = "username error";
+          check = false;
+        } else {
+          errorUsername.innerText = "";
+        }
+        // Kiểm tra mật khẩu
+        if (form.password.value === "") {
+          errorPassword.innerText = "Password error";
+          check = false;
+        } else if (!validPassword(form.password.value)) {
+          errorPassword.innerText =
+            "Password phải chứa ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt";
+          check = false;
+        } else {
+          errorPassword.innerText = "";
+        }
+        return check;
+      }
+
+      // Hàm kiểm tra định dạng email
+      function validEmail(email) {
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+      }
+
+      // Hàm kiểm tra định dạng mật khẩu
+      function validPassword(password) {
+        return /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+          password
+        );
+      }
+    </script>
+  </body>
+</html>
